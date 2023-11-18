@@ -15,6 +15,16 @@ router.get('/', async(req,res)=>{
     }
 })
 
+// get unavailed licenses
+router.get('/', async(req,res)=>{
+    try {
+        const licenses = await License.find({activated: false})
+        res.status(200).json({RESPONSE: licenses})
+    } catch (error) {
+        res.status(400).json({RESPONSE: error.message})
+    }
+})
+
 // get a licenses
 router.get('/:licenseKey', async(req,res)=>{
     try {
